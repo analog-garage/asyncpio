@@ -1007,35 +1007,38 @@ async def td():
 
    tdcb.cancel()
 
-if len(sys.argv) > 1:
-   tests = ""
-   for C in sys.argv[1]:
-      c = C.lower()
-      if c not in tests:
-         tests += c
+async def main():
+   if len(sys.argv) > 1:
+      tests = ""
+      for C in sys.argv[1]:
+         c = C.lower()
+         if c not in tests:
+            tests += c
 
-else:
-   tests = "0123456789d"
+   else:
+      tests = "0123456789d"
 
-pi = asyncpio.pi()
-asyncio.run(pi.connect())
+   pi = asyncpio.pi()
+   await pi.connect()
 
-print("Connected to pigpio daemon.")
+   print("Connected to pigpio daemon.")
 
-if '0' in tests: t0()
-if '1' in tests: t1()
-if '2' in tests: t2()
-if '3' in tests: t3()
-if '4' in tests: t4()
-if '5' in tests: t5()
-if '6' in tests: t6()
-if '7' in tests: t7()
-if '8' in tests: t8()
-if '9' in tests: t9()
-if 'a' in tests: ta()
-if 'b' in tests: tb()
-if 'c' in tests: tc()
-if 'd' in tests: td()
+   if '0' in tests: await t0()
+   if '1' in tests: await t1()
+   if '2' in tests: await t2()
+   if '3' in tests: await t3()
+   if '4' in tests: await t4()
+   if '5' in tests: await t5()
+   if '6' in tests: await t6()
+   if '7' in tests: await t7()
+   if '8' in tests: await t8()
+   if '9' in tests: await t9()
+   if 'a' in tests: await ta()
+   if 'b' in tests: await tb()
+   if 'c' in tests: await tc()
+   if 'd' in tests: await td()
 
-asyncio.run(pi.stop())
+   await pi.stop()
+
+asyncio.run(main())
 
