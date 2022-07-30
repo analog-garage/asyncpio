@@ -929,9 +929,9 @@ class _socklock:
    """
    A class to store socket and lock.
    """
-   def __init__(self, loop=None):
+   def __init__(self):
       self.s = None
-      self.l = asyncio.Lock(loop=loop)
+      self.l = asyncio.Lock()
 
 class error(Exception):
    """pigpio module exception"""
