@@ -9,6 +9,33 @@ This is a port of pigpio's thread-based Python client to asyncio.
 
 [pigpio](https://github.com/joan2937/pigpio) is a dependency: you must have the [pigpio](https://github.com/joan2937/pigpio) daemon, `pigpiod`.
 
+## Usage
+
+Create an `asyncio.pi()` and `await pi.connect()`, then `await` the various `pi.*` function calls as you would for `pigpio`,
+
+```python
+async def main():
+    pi = asyncpio.pi()
+    await pi.connect()
+    # ... await pi.<func> calls.
+
+asyncio.run(main())
+```
+
+You may call `asyncpio.pi()` outside of a running event loop if you need greater control over the loop,
+
+```python
+async def main(pi):
+    await pi.connect()
+    # ... await pi.<func> calls.
+
+pi = asyncpio.pi()
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main(pi))
+```
+
+See the `pigpio` Python documentation and `EXAMPLES` of the `pi` API.
+
 ## Documentation
 
 See http://abyz.me.uk/rpi/pigpio/
