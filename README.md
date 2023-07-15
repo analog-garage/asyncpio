@@ -34,7 +34,7 @@ loop = asyncio.get_event_loop()
 loop.run_until_complete(main(pi))
 ```
 
-See the `pigpio` Python documentation and `EXAMPLES` of the `pi` API.
+See the `pigpio` Python documentation and `EXAMPLES` for the `pi` API.
 
 ## Documentation
 
