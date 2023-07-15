@@ -66,8 +66,8 @@ class decoder:
       await self.pi.set_pull_up_down(gpio_0, asyncpio.PUD_UP)
       await self.pi.set_pull_up_down(gpio_1, asyncpio.PUD_UP)
 
-      await self.cb_0 = self.pi.callback(gpio_0, asyncpio.FALLING_EDGE, self._cb)
-      await self.cb_1 = self.pi.callback(gpio_1, asyncpio.FALLING_EDGE, self._cb)
+      self.cb_0 = await self.pi.callback(gpio_0, asyncpio.FALLING_EDGE, self._cb)
+      self.cb_1 = await self.pi.callback(gpio_1, asyncpio.FALLING_EDGE, self._cb)
 
    async def _cb(self, gpio, level, tick):
 

@@ -47,7 +47,7 @@ async def main(pi):
          stdscr.addstr(row, col, "{:2}".format(g), curses.A_BOLD)
 
          stdscr.addstr(
-            "={} {:>6}: {:<10}".format(pi.read(g), MODES[mode], tally))
+            "={} {:>6}: {:<10}".format(await pi.read(g), MODES[mode], tally))
 
       stdscr.refresh()
 
