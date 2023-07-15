@@ -333,7 +333,7 @@ import asyncio
 import os
 import atexit
 
-__version__ = '0.0.1' # asyncpio version.
+__version__ = '0.78.0' # asyncpio version.
 VERSION = "1.78"  # Upstream pigpio version. sync minor number to pigpio library version
 
 exceptions = True
