@@ -64,5 +64,6 @@ async def main():
     await pi.i2c_close(handle)
     await pi.stop()
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
 

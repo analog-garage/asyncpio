@@ -91,4 +91,10 @@ async def main():
 
    print("eps={} ({}/{})".format(tot/delay, tot, delay))
 
-asyncio.run(main())
+if __name__ == "__main__":
+   print("WARNING: running this script with anything connected to the GPIOs may cause damage")
+   proceed = input("Proceed? [yes/no]: ")
+   if proceed.lower() == "yes":
+      asyncio.run(main())
+   else:
+      print("Exiting")

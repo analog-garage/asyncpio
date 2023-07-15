@@ -243,8 +243,6 @@ class sensor:
 
 
 async def main():
-   pi = asyncpio.pi()
-
    # Intervals of about 2 seconds or less will eventually hang the DHT22.
    INTERVAL = 3
 

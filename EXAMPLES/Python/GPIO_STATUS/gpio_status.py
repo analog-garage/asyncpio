@@ -58,9 +58,10 @@ async def main(pi):
       if c != curses.ERR:
          break
 
-pi = asyncpio.pi()
-loop = asyncio.get_event_loop()
-try:
-    loop.run_until_complete(main(pi))
-finally:
-    loop.run_until_complete(cleanup(pi))
+if __name__ == "__main__":
+   pi = asyncpio.pi()
+   loop = asyncio.get_event_loop()
+   try:
+      loop.run_until_complete(main(pi))
+   finally:
+      loop.run_until_complete(cleanup(pi))
