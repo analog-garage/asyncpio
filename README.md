@@ -11,7 +11,7 @@ This is a port of pigpio's thread-based Python client to asyncio.
 
 ## Usage
 
-Create an `asyncio.pi()` and `await pi.connect()`, then `await` the various `pi.*` function calls as you would for `pigpio`,
+Create an `asyncpio.pi()` and `await pi.connect()`, then `await` the various `pi.*` function calls as you would for `pigpio`,
 
 ```python
 async def main():
