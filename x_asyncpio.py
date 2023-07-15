@@ -43,7 +43,7 @@ def CHECK(t, st, got, expect, pc, desc):
       print("TEST {:2d}.{:<2d} FAILED got {:d} ({}: {:d})".
          format(t, st, got, desc, expect))
 
-async def t0():
+async def t0(pi):
 
    print("\nTesting asyncpio Python module {}".format(asyncpio.__version__))
 
@@ -53,7 +53,7 @@ async def t0():
 
    print("Hardware revision {}.".format(await pi.get_hardware_revision()))
 
-async def t1():
+async def t1(pi):
 
    print("Mode/PUD/read/write tests.")
 
@@ -86,7 +86,7 @@ def t2cbf(gpio, level, tick):
    global t2_count
    t2_count += 1
 
-async def t2():
+async def t2(pi):
 
    global t2_count
 
@@ -181,7 +181,7 @@ def t3cbf(gpio, level, tick):
    t3_count += 1
    t3_tick = tick
 
-async def t3():
+async def t3(pi):
 
    global t3_reset, t3_count, t3_on, t3_off
 
@@ -237,7 +237,7 @@ async def t3():
 
    t3cb.cancel()
 
-async def t4():
+async def t4(pi):
 
    print("Pipe notification tests.")
 
@@ -319,7 +319,7 @@ def t5cbf(gpio, level, tick):
    global t5_count
    t5_count += 1
 
-async def t5():
+async def t5(pi):
    global t5_count
 
    BAUD=4800
@@ -539,7 +539,7 @@ def t6cbf(gpio, level, tick):
       if t6_on_tick is not None:
          t6_on += asyncpio.tickDiff(t6_on_tick, tick)
 
-async def t6():
+async def t6(pi):
    global t6_count, t6_on
 
    print("Trigger tests.")
@@ -571,7 +571,7 @@ def t7cbf(gpio, level, tick):
    if level == asyncpio.TIMEOUT:
       t7_count += 1
 
-async def t7():
+async def t7(pi):
    global t7_count
 
    print("Watchdog tests.")
@@ -595,7 +595,7 @@ async def t7():
 
    t7cb.cancel()
 
-async def t8():
+async def t8(pi):
    print("Bank read/write tests.")
 
    await pi.write(GPIO, 0)
@@ -639,14 +639,14 @@ async def t8():
    asyncpio.exceptions = True
    CHECK(8, 9, v, asyncpio.PI_SOME_PERMITTED, 0, "set bank 2")
 
-async def t9waitNotHalted(s):
+async def t9waitNotHalted(pi, s):
    for check in range(10):
       await asyncio.sleep(0.1)
       e, p = await pi.script_status(s)
       if e != asyncpio.PI_SCRIPT_HALTED:
          return
 
-async def t9():
+async def t9(pi):
    print("Script store/run/status/stop/delete tests.")
 
    await pi.write(GPIO, 0) # need known state
@@ -682,7 +682,7 @@ async def t9():
    oc = t9cb.tally()
    await pi.run_script(s, [99, GPIO])
 
-   t9waitNotHalted(s)
+   t9waitNotHalted(pi, s)
 
    while True:
       e, p = await pi.script_status(s)
@@ -696,7 +696,7 @@ async def t9():
    oc = t9cb.tally()
    await pi.run_script(s, [200, GPIO])
 
-   t9waitNotHalted(s)
+   t9waitNotHalted(pi, s)
 
    while True:
       e, p = await pi.script_status(s)
@@ -710,7 +710,7 @@ async def t9():
    oc = t9cb.tally()
    await pi.run_script(s, [2000, GPIO])
 
-   t9waitNotHalted(s)
+   t9waitNotHalted(pi, s)
 
    while True:
       e, p = await pi.script_status(s)
@@ -730,7 +730,7 @@ async def t9():
 
    asyncpio.exceptions = old_exceptions
 
-async def ta():
+async def ta(pi):
    print("Serial link tests.")
 
    # this test needs RXD and TXD to be connected
@@ -786,7 +786,7 @@ Or to take Arms against a Sea of troubles,
    e = await pi.serial_close(h)
    CHECK(10, 13, e, 0, 0, "serial close")
 
-async def tb():
+async def tb(pi):
    print("SMBus / I2C tests.")
 
    # this test requires an ADXL345 on I2C bus 1 addr 0x53
@@ -866,7 +866,7 @@ async def tca(b, d):
       await asyncio.sleep(1.0)
       print((c1*256)+c2)
 
-async def tc():
+async def tc(pi):
    print("SPI tests.")
 
    # this test requires a MCP3202 on SPI channel 1
@@ -897,7 +897,7 @@ async def tc():
    e = await pi.spi_close(h)
    CHECK(12, 99, e, 0, 0, "spi close")
 
-async def td():
+async def td(pi):
 
    print("Wavechains & filter tests.")
 
@@ -1023,20 +1023,20 @@ async def main():
 
    print("Connected to pigpio daemon.")
 
-   if '0' in tests: await t0()
-   if '1' in tests: await t1()
-   if '2' in tests: await t2()
-   if '3' in tests: await t3()
-   if '4' in tests: await t4()
-   if '5' in tests: await t5()
-   if '6' in tests: await t6()
-   if '7' in tests: await t7()
-   if '8' in tests: await t8()
-   if '9' in tests: await t9()
-   if 'a' in tests: await ta()
-   if 'b' in tests: await tb()
-   if 'c' in tests: await tc()
-   if 'd' in tests: await td()
+   if '0' in tests: await t0(pi)
+   if '1' in tests: await t1(pi)
+   if '2' in tests: await t2(pi)
+   if '3' in tests: await t3(pi)
+   if '4' in tests: await t4(pi)
+   if '5' in tests: await t5(pi)
+   if '6' in tests: await t6(pi)
+   if '7' in tests: await t7(pi)
+   if '8' in tests: await t8(pi)
+   if '9' in tests: await t9(pi)
+   if 'a' in tests: await ta(pi)
+   if 'b' in tests: await tb(pi)
+   if 'c' in tests: await tc(pi)
+   if 'd' in tests: await td(pi)
 
    await pi.stop()
 
