@@ -45,7 +45,7 @@ def CHECK(t, st, got, expect, pc, desc):
 
 async def t0():
 
-   print("\nTesting asyncpio Python module {}".format(asyncpio.VERSION))
+   print("\nTesting asyncpio Python module {}".format(asyncpio.__version__))
 
    print("Python {}".format(sys.version.replace("\n", " ")))
 
